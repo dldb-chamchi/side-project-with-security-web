@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
-import type { AuthUser } from '../types/auth'
+import { Link } from 'react-router-dom';
+import type { AuthUser } from '../types/auth';
 
 type HomePageProps = {
-  user: AuthUser | null
-}
+  user: AuthUser | null;
+};
 
 export function HomePage({ user }: HomePageProps) {
   return (
@@ -14,9 +14,7 @@ export function HomePage({ user }: HomePageProps) {
           ? `${user.email}님, 환영합니다.`
           : '로그인하고 서비스를 이용해보세요.'}
       </h1>
-      <p className="lead">
-        세션 로그인 기반으로 게시판과 마이페이지 기능을 연결할 예정입니다.
-      </p>
+      <p className="lead">공동구매 웹 사이트</p>
 
       <div className="actions">
         <Link className="primary-link" to={user ? '/groups' : '/login'}>
@@ -29,5 +27,5 @@ export function HomePage({ user }: HomePageProps) {
         )}
       </div>
     </section>
-  )
+  );
 }
