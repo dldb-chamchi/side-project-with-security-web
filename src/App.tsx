@@ -10,6 +10,7 @@ import { LoginPage } from './pages/LoginPage'
 import { MyPage } from './pages/MyPage'
 import { PostDetailPage } from './pages/PostDetailPage'
 import { PostFormPage } from './pages/PostFormPage'
+import { SignupPage } from './pages/SignupPage'
 import type { AuthUser } from './types/auth'
 import './App.css'
 
@@ -45,6 +46,10 @@ function App() {
                 <LoginPage onLoginSuccess={handleLoginSuccess} />
               )
             }
+          />
+          <Route
+            path="/signup"
+            element={user ? <Navigate to="/" replace /> : <SignupPage />}
           />
           <Route
             path="/board"

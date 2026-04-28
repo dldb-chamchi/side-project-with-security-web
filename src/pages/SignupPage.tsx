@@ -1,21 +1,13 @@
 import { type FormEvent, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { login } from '../api/auth'
+import { Link, useNavigate } from 'react-router-dom'
+import { signup } from '../api/members'
 
-type LoginPageProps = {
-  onLoginSuccess: (email: string) => void
-}
-
-export function LoginPage({ onLoginSuccess }: LoginPageProps) {
+export function SignupPage() {
   const navigate = useNavigate()
-  const location = useLocation()
-  const locationState = location.state as
-    | { message?: string; email?: string }
-    | undefined
-  const [email, setEmail] = useState(locationState?.email ?? '')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [successMessage] = useState(locationState?.message ?? '')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -24,12 +16,16 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
     setIsSubmitting(true)
 
     try {
-      await login(email, password)
-      onLoginSuccess(email)
-      navigate('/')
+      await signup({ name, email, password })
+      navigate('/login', {
+        state: {
+          message: '회원가입이 완료되었습니다. 로그인해주세요.',
+          email,
+        },
+      })
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : '로그인에 실패했습니다.',
+        error instanceof Error ? error.message : '회원가입에 실패했습니다.',
       )
     } finally {
       setIsSubmitting(false)
@@ -40,12 +36,22 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
     <section className="login-section">
       <form className="login-card" onSubmit={handleSubmit}>
         <div>
-          <p className="eyebrow">Sign in</p>
-          <h1>로그인</h1>
+          <p className="eyebrow">Sign up</p>
+          <h1>회원가입</h1>
           <p className="form-description">
-            이메일과 비밀번호를 입력해 서비스를 시작하세요.
+            계정을 만들고 공동구매 그룹에 참여해보세요.
           </p>
         </div>
+
+        <label>
+          이름
+          <input
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="홍길동"
+            required
+          />
+        </label>
 
         <label>
           이메일
@@ -69,14 +75,13 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         </label>
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>}
 
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? '로그인 중...' : '로그인'}
+          {isSubmitting ? '가입 중...' : '회원가입'}
         </button>
 
         <p className="auth-link">
-          계정이 없으신가요? <Link to="/signup">회원가입</Link>
+          이미 계정이 있으신가요? <Link to="/login">로그인</Link>
         </p>
       </form>
     </section>
