@@ -6,13 +6,16 @@ import {
   joinGroup,
   updateGroupStatus,
 } from '../api/groups'
+import { getGroupPosts } from '../api/posts'
 import type { Group, GroupStatus } from '../types/group'
+import type { Post } from '../types/post'
 
 export function GroupDetailPage() {
   const { groupId } = useParams()
   const navigate = useNavigate()
   const [group, setGroup] = useState<Group | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [posts, setPosts] = useState<Post[]>([])
   const [errorMessage, setErrorMessage] = useState('')
   const [message, setMessage] = useState('')
 
@@ -26,8 +29,14 @@ export function GroupDetailPage() {
       setErrorMessage('')
 
       try {
-        const nextGroup = await getGroup(groupId)
-        if (!ignore) setGroup(nextGroup)
+        const [nextGroup, nextPosts] = await Promise.all([
+          getGroup(groupId),
+          getGroupPosts(groupId),
+        ])
+        if (!ignore) {
+          setGroup(nextGroup)
+          setPosts(nextPosts)
+        }
       } catch (error) {
         if (!ignore) {
           setErrorMessage(
@@ -152,13 +161,39 @@ export function GroupDetailPage() {
           <div className="detail-panel">
             <div className="panel-header">
               <h2>게시글</h2>
-              <Link className="secondary-link" to="/board">
-                게시판으로
+              <Link className="secondary-link" to={`/groups/${group.groupId}/posts/new`}>
+                게시글 올리기
               </Link>
             </div>
-            <p className="state-message">
-              다음 단계에서 이 그룹의 게시글 목록을 연결할 예정입니다.
-            </p>
+            {posts.length === 0 ? (
+              <p className="state-message">이 그룹에 등록된 게시글이 없습니다.</p>
+            ) : (
+              <div className="item-list compact-list">
+                {posts.map((post) => (
+                  <article className="item-card post-card" key={post.id}>
+                    {post.imageUrl && (
+                      <img className="post-thumb" src={post.imageUrl} alt="" />
+                    )}
+                    <div className="item-card-body">
+                      <h3>{post.title}</h3>
+                      <p>{post.content}</p>
+                      <p className="meta">
+                        이미지 {post.imageUrl ? '있음' : '없음'} ·{' '}
+                        {formatDateTime(post.createdAt)}
+                      </p>
+                    </div>
+                    <div className="card-actions">
+                      <Link
+                        className="secondary-link"
+                        to={`/groups/${group.groupId}/posts/${post.id}`}
+                      >
+                        자세히
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="detail-panel">

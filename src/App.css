@@ -37,7 +37,8 @@
 .toolbar button,
 .card-actions button,
 .actions button,
-.feature-form button {
+.feature-form button,
+.inline-form button {
   min-height: 40px;
   border-radius: 6px;
   border: 1px solid var(--border);
@@ -62,7 +63,8 @@
 .secondary-link:hover,
 .toolbar button:hover,
 .card-actions button:hover,
-.actions button:hover {
+.actions button:hover,
+.inline-form button:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -291,8 +293,15 @@
 }
 
 .item-card h2,
-.detail-panel h2 {
+.detail-panel h2,
+.item-card h3 {
   margin: 0;
+}
+
+.item-card h3 {
+  color: var(--text-h);
+  font-size: 18px;
+  line-height: 1.25;
 }
 
 .item-card p,
@@ -329,6 +338,80 @@
 .card-actions {
   flex: 0 0 auto;
   justify-content: flex-end;
+}
+
+.item-card-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.post-card {
+  align-items: stretch;
+}
+
+.post-thumb {
+  width: 128px;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--muted-bg);
+  flex: 0 0 auto;
+}
+
+.post-image-frame {
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.post-image-frame img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+}
+
+.post-content {
+  white-space: pre-wrap;
+}
+
+.compact-list {
+  margin-top: 16px;
+}
+
+.inline-form {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto auto;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 14px;
+}
+
+.inline-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.inline-form input {
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 12px;
+  color: var(--text-h);
+  background: var(--surface);
+  font: inherit;
+  font-size: 16px;
+}
+
+.inline-form input:focus {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent-bg);
 }
 
 .form-section,
@@ -379,6 +462,16 @@
   box-sizing: border-box;
 }
 
+.feature-form input[type='file'] {
+  min-height: auto;
+  padding: 10px 12px;
+}
+
+.feature-form input[type='checkbox'] {
+  width: 18px;
+  min-height: 18px;
+}
+
 .feature-form input {
   min-height: 44px;
 }
@@ -397,6 +490,23 @@
 
 .form-actions {
   justify-content: flex-end;
+}
+
+.current-image {
+  display: grid;
+  gap: 8px;
+}
+
+.current-image img {
+  width: min(100%, 360px);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
 }
 
 .detail-header {
@@ -450,6 +560,14 @@
   .form-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .inline-form {
+    grid-template-columns: 1fr;
+  }
+
+  .post-thumb {
+    width: 100%;
   }
 
   .feature-form {

@@ -8,6 +8,8 @@ import { GroupsPage } from './pages/GroupsPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { MyPage } from './pages/MyPage'
+import { PostDetailPage } from './pages/PostDetailPage'
+import { PostFormPage } from './pages/PostFormPage'
 import type { AuthUser } from './types/auth'
 import './App.css'
 
@@ -44,7 +46,10 @@ function App() {
               )
             }
           />
-          <Route path="/board" element={<BoardPage />} />
+          <Route
+            path="/board"
+            element={user ? <BoardPage /> : <Navigate to="/login" replace />}
+          />
           <Route
             path="/groups"
             element={user ? <GroupsPage /> : <Navigate to="/login" replace />}
@@ -70,6 +75,32 @@ function App() {
             element={
               user ? (
                 <GroupFormPage mode="edit" />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/groups/:groupId/posts/new"
+            element={
+              user ? (
+                <PostFormPage mode="create" />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/groups/:groupId/posts/:postId"
+            element={
+              user ? <PostDetailPage /> : <Navigate to="/login" replace />
+            }
+          />
+          <Route
+            path="/groups/:groupId/posts/:postId/edit"
+            element={
+              user ? (
+                <PostFormPage mode="edit" />
               ) : (
                 <Navigate to="/login" replace />
               )
