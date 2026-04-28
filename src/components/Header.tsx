@@ -37,6 +37,7 @@ export function Header({ user, onLogoutSuccess }: HeaderProps) {
       </Link>
 
       <nav className="nav" aria-label="주요 메뉴">
+        {user && <Link to="/groups">그룹</Link>}
         <Link to="/board">게시판</Link>
         {user ? (
           <>

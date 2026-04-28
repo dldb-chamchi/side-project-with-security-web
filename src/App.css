@@ -33,7 +33,11 @@
 .nav button,
 .primary-link,
 .secondary-link,
-.login-card button {
+.login-card button,
+.toolbar button,
+.card-actions button,
+.actions button,
+.feature-form button {
   min-height: 40px;
   border-radius: 6px;
   border: 1px solid var(--border);
@@ -55,7 +59,10 @@
 
 .nav a:hover,
 .nav button:hover,
-.secondary-link:hover {
+.secondary-link:hover,
+.toolbar button:hover,
+.card-actions button:hover,
+.actions button:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -80,7 +87,10 @@
 
 .home-section,
 .placeholder-section,
-.login-section {
+.login-section,
+.list-section,
+.form-section,
+.detail-section {
   width: min(100%, 960px);
   margin: 0 auto;
   padding: 96px 32px;
@@ -118,14 +128,16 @@
 }
 
 .primary-link,
-.login-card button {
+.login-card button,
+.feature-form button[type='submit'] {
   border-color: var(--accent);
   color: #fff;
   background: var(--accent);
 }
 
 .primary-link:hover,
-.login-card button:hover:not(:disabled) {
+.login-card button:hover:not(:disabled),
+.feature-form button[type='submit']:hover:not(:disabled) {
   background: var(--accent-strong);
   border-color: var(--accent-strong);
 }
@@ -198,6 +210,210 @@
   font-size: 14px;
 }
 
+.success-message,
+.state-message {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.success-message {
+  border: 1px solid var(--success-border);
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+.state-message {
+  color: var(--text);
+  background: var(--muted-bg);
+}
+
+.section-header,
+.detail-header,
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.section-header {
+  margin-bottom: 28px;
+}
+
+.toolbar,
+.actions,
+.card-actions,
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toolbar {
+  margin-bottom: 20px;
+}
+
+.toolbar button.is-active {
+  border-color: var(--accent);
+  color: #fff;
+  background: var(--accent);
+}
+
+.item-list {
+  display: grid;
+  gap: 14px;
+}
+
+.item-card,
+.detail-panel,
+.feature-form {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.item-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px;
+}
+
+.item-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.item-card h2,
+.detail-panel h2 {
+  margin: 0;
+}
+
+.item-card p,
+.detail-panel p {
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.status-badge {
+  min-height: 26px;
+  border-radius: 999px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-badge.open {
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+.status-badge.closed {
+  color: var(--text);
+  background: var(--muted-bg);
+}
+
+.card-actions {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+.form-section,
+.detail-section,
+.list-section {
+  text-align: left;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 20px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.feature-form {
+  width: min(100%, 640px);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.feature-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.feature-form input,
+.feature-form textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 12px;
+  color: var(--text-h);
+  background: var(--bg);
+  font: inherit;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.feature-form input {
+  min-height: 44px;
+}
+
+.feature-form textarea {
+  min-height: 150px;
+  padding-block: 12px;
+  resize: vertical;
+}
+
+.feature-form input:focus,
+.feature-form textarea:focus {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent-bg);
+}
+
+.form-actions {
+  justify-content: flex-end;
+}
+
+.detail-header {
+  margin-bottom: 24px;
+}
+
+.detail-panel {
+  padding: 24px;
+  margin-top: 16px;
+}
+
+.danger-button {
+  border-color: var(--danger-border);
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
 @media (max-width: 640px) {
   .app-header {
     align-items: flex-start;
@@ -212,11 +428,31 @@
 
   .home-section,
   .placeholder-section,
-  .login-section {
+  .login-section,
+  .list-section,
+  .form-section,
+  .detail-section {
     padding: 56px 20px;
   }
 
   .login-card {
+    padding: 24px;
+  }
+
+  .section-header,
+  .detail-header,
+  .item-card,
+  .panel-header {
+    flex-direction: column;
+  }
+
+  .card-actions,
+  .form-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .feature-form {
     padding: 24px;
   }
 }

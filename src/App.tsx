@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Header } from './components/Header'
 import { BoardPage } from './pages/BoardPage'
+import { GroupDetailPage } from './pages/GroupDetailPage'
+import { GroupFormPage } from './pages/GroupFormPage'
+import { GroupsPage } from './pages/GroupsPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { MyPage } from './pages/MyPage'
@@ -42,6 +45,36 @@ function App() {
             }
           />
           <Route path="/board" element={<BoardPage />} />
+          <Route
+            path="/groups"
+            element={user ? <GroupsPage /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/groups/new"
+            element={
+              user ? (
+                <GroupFormPage mode="create" />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/groups/:groupId"
+            element={
+              user ? <GroupDetailPage /> : <Navigate to="/login" replace />
+            }
+          />
+          <Route
+            path="/groups/:groupId/edit"
+            element={
+              user ? (
+                <GroupFormPage mode="edit" />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
           <Route
             path="/mypage"
             element={
