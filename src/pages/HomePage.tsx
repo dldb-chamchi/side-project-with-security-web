@@ -19,12 +19,12 @@ export function HomePage({ user }: HomePageProps) {
       </p>
 
       <div className="actions">
-        <Link className="primary-link" to={user ? '/board' : '/login'}>
-          {user ? '게시판 보러가기' : '로그인하기'}
+        <Link className="primary-link" to={user ? '/groups' : '/login'}>
+          {user ? '그룹 보러가기' : '로그인하기'}
         </Link>
         {user && (
-          <Link className="secondary-link" to="/mypage">
-            마이페이지
+          <Link className="secondary-link" to="/board">
+            게시판
           </Link>
         )}
       </div>
