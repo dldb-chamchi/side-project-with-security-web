@@ -38,7 +38,9 @@
 .card-actions button,
 .actions button,
 .feature-form button,
-.inline-form button {
+.inline-form button,
+.profile-card button,
+.tabs button {
   min-height: 40px;
   border-radius: 6px;
   border: 1px solid var(--border);
@@ -64,7 +66,9 @@
 .toolbar button:hover,
 .card-actions button:hover,
 .actions button:hover,
-.inline-form button:hover {
+.inline-form button:hover,
+.profile-card button:hover,
+.tabs button:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -262,20 +266,83 @@
 .toolbar,
 .actions,
 .card-actions,
-.form-actions {
+.form-actions,
+.tabs {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.toolbar {
+.toolbar,
+.tabs {
   margin-bottom: 20px;
 }
 
-.toolbar button.is-active {
+.toolbar button.is-active,
+.tabs button.is-active {
   border-color: var(--accent);
   color: #fff;
   background: var(--accent);
+}
+
+.tabs {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+
+.tab-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.profile-card {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.profile-card input {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 12px;
+  color: var(--text-h);
+  background: var(--bg);
+  font: inherit;
+  font-size: 16px;
+}
+
+.profile-card input:focus {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent-bg);
+}
+
+.profile-card button {
+  align-self: flex-end;
+}
+
+.profile-value {
+  margin-top: 4px;
+  color: var(--text-h);
+  font-size: 18px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .item-list {
@@ -588,5 +655,13 @@
 
   .feature-form {
     padding: 24px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card button {
+    align-self: stretch;
   }
 }

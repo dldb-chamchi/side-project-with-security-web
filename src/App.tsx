@@ -30,6 +30,11 @@ function App() {
     setUser(null)
   }
 
+  const handleEmailChange = (email: string) => {
+    sessionStorage.setItem('loginEmail', email)
+    setUser({ email })
+  }
+
   return (
     <div className="app-shell">
       <Header user={user} onLogoutSuccess={handleLogoutSuccess} />
@@ -114,7 +119,11 @@ function App() {
           <Route
             path="/mypage"
             element={
-              user ? <MyPage user={user} /> : <Navigate to="/login" replace />
+              user ? (
+                <MyPage user={user} onEmailChange={handleEmailChange} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
             }
           />
         </Routes>
